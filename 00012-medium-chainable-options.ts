@@ -44,7 +44,10 @@ type Expected3 = {
 };
 
 // ============= Your Code Here =============
-type Chainable = {
-  option(key: string, value: any): ThisType;
-  get(): any;
+type Chainable<R = {}> = {
+  option<K extends string, V>(
+    key: K extends keyof R ? never : K,
+    value: V
+  ): Chainable<Omit<R, K> & { [key in K]: V }>;
+  get(): R;
 };

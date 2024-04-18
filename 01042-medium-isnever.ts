@@ -12,4 +12,6 @@ type cases = [
 ];
 
 // ============= Your Code Here =============
-type IsNever<T> = 1 & T extends T ? false : true;
+// T | K === T, then K is never
+// type IsNever<T> = (<K>() => T | K) extends <K>() => K ? true : false;
+type IsNever<T> = [T] extends [never] ? true : false;
