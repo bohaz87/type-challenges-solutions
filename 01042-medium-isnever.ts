@@ -14,4 +14,5 @@ type cases = [
 // ============= Your Code Here =============
 // T | K === T, then K is never
 // type IsNever<T> = (<K>() => T | K) extends <K>() => K ? true : false;
+// https://github.com/microsoft/TypeScript/issues/31751#issuecomment-498526919
 type IsNever<T> = [T] extends [never] ? true : false;
