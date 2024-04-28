@@ -29,7 +29,7 @@ type Fill<
   ? Filled["length"] extends End
     ? [...Filled, ...T]
     : Filled["length"] extends Start
-    ?  Fill<T, N, Start, End, true, Filled>
+    ? Fill<Tail, N, Start, End, true, [...Filled, N]>
     : Fill<
         Tail,
         N,

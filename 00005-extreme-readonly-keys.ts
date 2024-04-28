@@ -19,12 +19,10 @@ interface Todo2 {
 }
 
 // ============= Your Code Here =============
-type GetReadonlyKeys<T> = keyof T extends infer K
-  ? K extends keyof Readonly<T>
+type GetReadonlyKeys<T, KEYS = keyof T> = KEYS extends infer K extends keyof T
+  ? Equal<Pick<T, K>, Pick<Readonly<T>, K>> extends true
     ? K
     : never
   : never;
-
-type d = "completed" extends keyof Readonly<Todo1> ? true : false;
 
 type a = GetReadonlyKeys<Todo2>;

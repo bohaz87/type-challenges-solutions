@@ -9,10 +9,19 @@ type cases = [
 
 // ============= Your Code Here =============
 
-type Maximum<T extends any[]> = T extends [infer A, ...infer R] ? A : never;
+type MaxTwo<A extends number, B extends number, C extends unknown[] = []> = C["length"] extends A
+  ? B
+  : C["length"] extends B
+  ? A
+  : MaxTwo<A, B, [...C, 1]>;
+type a = MaxTwo<11, 22>;
 
-function max<T extends number[]>(...args: T) {
-  return Math.max(...args) as Maximum<T>;
-}
-
-var x = max(1, 2, 3);
+type Maximum<T extends number[]> = T extends [
+  infer A extends number,
+  infer B extends number,
+  ...infer R extends number[]
+]
+  ? R extends []
+    ? MaxTwo<A, B>
+    : Maximum<[MaxTwo<A, B>, ...R]>
+  : never;
